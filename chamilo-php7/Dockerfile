@@ -72,3 +72,4 @@ RUN a2ensite chamilo; a2enmod remoteip rewrite headers
 RUN echo "127.0.0.1 docker.chamilo.net" >> /etc/hosts
 
 EXPOSE 80
+
