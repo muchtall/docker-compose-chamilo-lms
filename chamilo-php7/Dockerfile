@@ -1,4 +1,5 @@
-FROM php:7.3-apache as php7_apache_base
+ARG PHP_VERSION="7.4.33-apache"
+FROM php:${PHP_VERSION}-apache as php7_apache_base
 
 # install packages
 RUN apt update && apt install -yq --no-install-recommends \
@@ -33,9 +34,10 @@ RUN pecl install apcu && \
 RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql zip xsl
 RUN docker-php-ext-configure intl && \
     docker-php-ext-install -j$(nproc) intl
+# Use different args for PHP >= 7.4 
 RUN docker-php-ext-configure gd \
-    --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
-    --with-freetype-dir=/usr/include/ --with-gd && \
+    --with-jpeg=/usr/include/ \
+    --with-freetype=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-enable memcached apcu
 

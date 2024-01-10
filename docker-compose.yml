@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  mariadb:
+  db:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=pass
@@ -10,17 +10,18 @@ services:
     labels:
       "project.id": "docker.compose.mariadb"
       "project.github.url": "https://github.com/22phuber/docker-compose-chamilo-lms"
-  chamilo_php7:
+  app:
     build:
       context: ./chamilo-php7
       target: php7_apache_chamilo_lms
       args:
-        - CHAMILO_VERSION=1.11.12
-        - CHAMILO_TAR=chamilo-1.11.12-php7.2.tar.gz
+        - PHP_VERSION=7.4.33
+        - CHAMILO_VERSION=1.11.26
+        - CHAMILO_TAR=chamilo-1.11.26.tar.gz
     links:
-      - mariadb
+      - db
     ports:
-      - "8080:80"
+      - "8082:80"
     extra_hosts:
       - "docker.chamilo.net:127.0.0.1"
     labels:
