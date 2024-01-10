@@ -34,7 +34,7 @@ RUN pecl install apcu && \
 RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql zip xsl
 RUN docker-php-ext-configure intl && \
     docker-php-ext-install -j$(nproc) intl
-# Use different args for PHP >= 7.4 
+
 RUN docker-php-ext-configure gd \
     --with-jpeg=/usr/include/ \
     --with-freetype=/usr/include/ && \
